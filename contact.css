@@ -35,7 +35,12 @@ nav ul {
 nav li {
   margin-left: 20px;
 }
-
+nav ul li a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bolder;
+  font-size: medium;
+}
 nav a {
   color: #555;
   text-decoration: none;
@@ -91,7 +96,7 @@ section textarea {
 }
 
 section button[type="submit"] {
-  background-color: #00ff44;
+  background-color: #007bff;
   color: #fff;
   font-weight: 600;
   padding: 10px;
@@ -101,7 +106,7 @@ section button[type="submit"] {
 }
 
 section button[type="submit"]:hover {
-  background-color: #00b31e;
+  background-color: #46de20;
 }
 
 .credit {
