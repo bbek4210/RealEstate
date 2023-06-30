@@ -34,7 +34,7 @@ if (mysqli_num_rows($result) == 1) {
     $_SESSION['email'] = $email;
 
     // Redirect to the dashboard or home page
-    header('Location: realestate.html');
+    header('Location: adminpage.html');
     exit();
 } else {
     // User was not found or login credentials are incorrect, show an error message

@@ -1,0 +1,142 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: medium;
+  color: #1dc2eb;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  background-color: #f5f5f5;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 18px;
+}
+
+.form-container {
+  max-width: 1000px;
+  width: 100%;
+  padding: 20px;
+  border: 1px solid #292929;
+  border-radius: 5px;
+  font-size: 20px;
+  margin-top: 100px;
+}
+
+.form-group {
+  margin-top: 0px;
+}
+
+.form-label {
+  font-weight: bold;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.form-btn {
+  display: block;
+  width: 400px;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.form-btn:hover {
+  background-color: #4caf50;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+header {
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-right: 2rem;
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 3rem;
+}
+
+nav ul li:last-child {
+  margin-right: 0;
+}
+
+nav ul li a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bolder;
+  font-size: medium;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+nav img {
+  height: 50px;
+  width: 100px;
+  margin-right: 10px;
+}
+
+nav ul li:hover {
+  transform: scale(1.2);
+  transition: transform 0.2s ease-in-out;
+  text-decoration: underline;
+  color: #4caf50;
+}
+
+#hover:hover {
+  color: #4caf50;
+  transform: scale(1.1);
+  transition: transform 0.2s ease-in-out;
+  text-decoration: underline;
+}
+input:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s ease-in-out;
+}
+select:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s ease-in-out;
+}
