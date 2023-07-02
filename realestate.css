@@ -12,6 +12,7 @@ body {
   color: #333;
 
   background-color: #f5f5f5;
+  font-size: larger;
 }
 
 h1,
@@ -125,7 +126,7 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  align-items: left;
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -133,7 +134,7 @@ section {
 }
 
 .listing-info {
-  text-align: center;
+  text-align: left;
 }
 
 .listing-info h3 {

@@ -26,14 +26,17 @@ $query = "SELECT * FROM users WHERE email = '{$email}' AND password = '{$passwor
 $result = mysqli_query($conn, $query);
 
 // Check if the user is found
-if(mysqli_num_rows($result) == 1){
+if (mysqli_num_rows($result) == 1) {
   // User was found, do something here (e.g. set session data and redirect to another page)
-  
+
   // Store the email in the session
   $_SESSION['email'] = $email;
-  
+
+  // Set the authorized session variable
+  $_SESSION['authorized'] = true;
+
   // Redirect to the dashboard or home page
-  header('Location: realestate.html');
+  header('Location: realestate.php');
   exit();
 } else {
   // User was not found or login credentials are incorrect, show an error message
@@ -41,4 +44,3 @@ if(mysqli_num_rows($result) == 1){
   header('Location: loginunsucess.html');
   exit();
 }
-?>
