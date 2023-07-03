@@ -65,7 +65,7 @@ if (isset($_GET['id'])) {
 
             // Display property details
             echo '<h2>' . $propertyName . '</h2>';
-            echo '<p>Price: $' . $propertyPrice . '</p>';
+            echo '<p>Price: ' . $propertyPrice . '</p>';
             echo '<img src="admin/property/' . $propertyImage1 . '" alt="Property Image 1">';
             echo '<img src="admin/property/' . $propertyImage2 . '" alt="Property Image 2">';
             echo '<img src="admin/property/' . $propertyImage3 . '" alt="Property Image 3">';
@@ -80,5 +80,3 @@ if (isset($_GET['id'])) {
 } else {
     echo 'Invalid property ID.';
 }
-?>
-// ...

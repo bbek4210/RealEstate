@@ -29,8 +29,16 @@ $result = mysqli_query($conn, $query);
 if (mysqli_num_rows($result) == 1) {
   // User was found, do something here (e.g. set session data and redirect to another page)
 
+  // Fetch the user data from the result
+  $user = mysqli_fetch_assoc($result);
+
+
   // Store the email in the session
   $_SESSION['email'] = $email;
+  $_SESSION['firstname'] = $user['firstname'];
+  $_SESSION['lastname'] = $user['lastname'];
+
+
 
   // Set the authorized session variable
   $_SESSION['authorized'] = true;

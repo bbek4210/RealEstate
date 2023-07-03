@@ -27,26 +27,47 @@ if ($conn->connect_error) {
   <meta charset="UTF-8" />
   <title>DreamGhar - Property Listing.</title>
   <link rel="stylesheet" href="realestate.css" />
+  <script src="https://kit.fontawesome.com/f835eee1c5.js" crossorigin="anonymous"></script>
+  <style>
+    .profile-icon {
+      font-size: 20px;
+      margin-right: 5px;
+    }
+  </style>
 </head>
 
 <body>
   <div>
+    <!-- ... -->
     <header>
       <nav>
         <img src="logo.png" alt="Dream Ghar Logo" />
         <ul style="display: flex; justify-content: flex-end">
-
           <li>
             <a href="submitproperty.php" id="hover">Submit Property</a>
           </li>
-
           <li><a href="about.html" id="hover">About</a></li>
           <li><a href="contactpage1.html" id="hover">Contact</a></li>
-          <li><a href="login.html" id="hover">Login</a></li>
-          <li><a href="logout.php" id="hover">LogOut</a></li>
+          <?php
+          session_start();
+          if (isset($_SESSION['email'])) {
+            // User is logged in
+            $firstname = $_SESSION['firstname'];
+            $lastname = $_SESSION['lastname'];
+
+            echo '<li><a href="profile.php" id="hover"><span class="profile-icon"><i class="fa-solid fa-user"></i></span> ' . $firstname . ' ' . $lastname . '</a></li>';
+            echo '<li><a href="logout.php" id="hover">Logout</a></li>';
+          } else {
+            // User is not logged in
+            echo '<li><a href="login.html" id="hover">Login</a></li>';
+          }
+          ?>
         </ul>
       </nav>
     </header>
+    <!-- ... -->
+
+
 
     <main>
       <section id="featured-listings">
@@ -60,10 +81,14 @@ if ($conn->connect_error) {
             <li>
               <img src="./admin/property/<?php echo $row['10']; ?>" width="600" height="300" alt="Listing Image" />
               <div class="listing-info">
-                <h1><?php echo $row['pid']; ?></h1>
+                <!-- <h1><?php echo $row['pid']; ?></h1> -->
+                <h2><?php echo $row['13'] ?></h2>
                 <h3><?php echo $row['8']; ?>, <?php echo $row['9']; ?></h3>
                 <p> Type : On <?php echo $row['2']; ?></p>
                 <p> Area : <?php echo $row['6']; ?>sqft</p>
+                <p> Bedroom : <?php echo $row['3']; ?></p>
+                <p> Bathroom : <?php echo $row['4']; ?></p>
+                <p> Kitchen : <?php echo $row['5']; ?></p>
                 <p><b>Posted By</b> : <?php echo $row['14']; ?></p>
                 <p><b>Contact Number : </b> <?php echo $row['15']; ?></p>
                 <button><a href="propertydetails.php?id=<?php echo $row['0']; ?>">View Details</a></button>
