@@ -56,7 +56,6 @@ if ($conn->connect_error) {
             $lastname = $_SESSION['lastname'];
 
             echo '<li><a href="profile.php" id="hover"><span class="profile-icon"><i class="fa-solid fa-user"></i></span> ' . $firstname . ' ' . $lastname . '</a></li>';
-            echo '<li><a href="logout.php" id="hover">Logout</a></li>';
           } else {
             // User is not logged in
             echo '<li><a href="login.html" id="hover">Login</a></li>';
