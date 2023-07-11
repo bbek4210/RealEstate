@@ -1,23 +1,28 @@
 <?php
-// delete-user.php
 
+$host = "localhost";
+$username = "root";
+$password = "";
+$dbname = "dreamghar";
+
+$conn = new mysqli($host, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get the email from the request
     $email = $_POST['email'];
 
     // Perform user deletion logic here
-    $success = deleteUserByEmail($email);
+    $success = deleteUserByEmail($conn, $email);
 
     // Prepare the response
-    $response = [];
-
-    if ($success) {
-        $response['success'] = true;
-        $response['message'] = 'User deleted successfully.';
-    } else {
-        $response['success'] = false;
-        $response['message'] = 'Failed to delete the user.';
-    }
+    $response = [
+        'success' => $success,
+        'message' => $success ? 'User deleted successfully.' : 'Failed to delete the user.'
+    ];
 
     // Send the response as JSON
     header('Content-Type: application/json');
@@ -25,24 +30,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-function deleteUserByEmail($email) {
+function deleteUserByEmail($conn, $email)
+{
     // Implement your user deletion logic here
-    // Connect to the database and delete the user with the provided email
-    // Return true if deletion is successful, or false otherwise
+    // Perform the SQL deletion statement based on your database schema
 
-    // Example implementation using a dummy array
-    $users = [
-        ['email' => 'user1@example.com'],
-        ['email' => 'user2@example.com'],
-        ['email' => 'user3@example.com'],
-    ];
+    $sql = "DELETE FROM users WHERE email = '$email'";
 
-    foreach ($users as $key => $user) {
-        if ($user['email'] === $email) {
-            unset($users[$key]);
-            return true;
-        }
-    }
-
-    return false; // User not found or deletion failed
+    return $conn->query($sql) === TRUE;
 }
+
+$conn->close();

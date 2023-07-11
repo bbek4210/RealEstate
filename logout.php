@@ -11,5 +11,5 @@ session_unset();
 session_destroy();
 
 // Redirect to the login page or any other desired page
-header('Location: login.html');
+header('Location: login_sign.php');
 exit();

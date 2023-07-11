@@ -18,11 +18,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $sellingType = $_GET['stype'];
 
     // Prepare the SQL query based on the search parameters
-    $sql = "SELECT * FROM property WHERE location LIKE '%$location%'";
-
-    if (!empty($sellingType)) {
-        $sql .= " AND stype = '$sellingType'";
+    $sql = "SELECT * FROM property";
+    $whereClause = [];
+    if (!empty($location)) {
+        $whereClause[] = "location LIKE '%$location%'";
     }
+    if (!empty($sellingType)) {
+        $whereClause[] = "stype = '$sellingType'";
+    }
+    if (!empty($whereClause)) {
+        $sql .= " WHERE " . implode(" AND ", $whereClause);
+    }
+
 
     // Execute the query
     $result = $conn->query($sql);
@@ -88,7 +95,10 @@ $conn->close();
                     <option value="sale">Sale</option>
                 </select>
 
-                <button type="submit">Search</button>
+                <button type="submit" style="
+    margin-top: 100px;
+    margin-right: 50px;
+">Search</button>
             </form>
 
             <?php if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($searchListings) && !empty($searchListings)) { ?>
@@ -109,7 +119,7 @@ $conn->close();
                         </li>
                     <?php } ?>
                 </ul>
-            <?php } else if ($_SERVER['REQUEST_METHOD'] === 'GET') { ?>
+            <?php } else if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($location) && !empty($sellingType) && empty($searchListings)) { ?>
                 <p>No results found.</p>
             <?php } ?>
         </section>

@@ -5,7 +5,7 @@ session_start();
 // Check if the user is authorized
 if (!isset($_SESSION['authorized']) || $_SESSION['authorized'] !== true) {
     // User is not authorized, redirect to the login page
-    header('Location: login.html');
+    header('Location: login_sign.php');
     exit();
 }
 

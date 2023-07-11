@@ -14,7 +14,7 @@ session_start();
 
 // Check if the user is already logged in
 // if(isset($_SESSION['email'])){
-//   header('Location: realestate.html');
+//   header('Location: realestate.php');
 //   exit();
 // }
 

@@ -10,7 +10,7 @@ session_start();
 // Check if the user is authorized
 if (!isset($_SESSION['authorized']) || $_SESSION['authorized'] !== true) {
     // User is not authorized, redirect to the login page
-    header('Location: login.html');
+    header('Location: login_sign.php');
     exit();
 }
 
@@ -95,7 +95,7 @@ if (isset($_POST['add'])) {
         // User was not found or login credentials are incorrect, show an error message
         // Redirect to the login page
         // echo $result;
-        header('Location: login.html');
+        header('Location: login_sign.php');
         exit();
     }
 }

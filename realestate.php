@@ -43,6 +43,9 @@ if ($conn->connect_error) {
       <nav>
         <img src="logo.png" alt="Dream Ghar Logo" />
         <ul style="display: flex; justify-content: flex-end">
+
+
+
           <li>
             <a href="submitproperty.php" id="hover">Submit Property</a>
           </li>
@@ -58,7 +61,7 @@ if ($conn->connect_error) {
             echo '<li><a href="profile.php" id="hover"><span class="profile-icon"><i class="fa-solid fa-user"></i></span> ' . $firstname . ' ' . $lastname . '</a></li>';
           } else {
             // User is not logged in
-            echo '<li><a href="login.html" id="hover">Login</a></li>';
+            echo '<li><a href="login_sign.php" id="hover">Login</a></li>';
           }
           ?>
         </ul>
@@ -80,7 +83,7 @@ if ($conn->connect_error) {
             <li>
               <img src="./admin/property/<?php echo $row['10']; ?>" width="600" height="300" alt="Listing Image" />
               <div class="listing-info">
-                <!-- <h1><?php echo $row['pid']; ?></h1> -->
+                <h6>Home no:<?php echo $row['pid']; ?></h6>
                 <h2><?php echo $row['13'] ?></h2>
                 <h3><?php echo $row['8']; ?>, <?php echo $row['9']; ?></h3>
                 <p> Type : On <?php echo $row['2']; ?></p>
