@@ -4,11 +4,7 @@ body {
   line-height: 1.5;
   color: #333;
   margin: 0;
-  background-image: url("bg5.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: rgba(255, 255, 255, 0.8);
+
   /* backdrop-filter: blur(3px); */
 }
 h1 {
@@ -100,9 +96,10 @@ main {
   background-color: #f9f5f5;
   padding: 2rem;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(235, 234, 234, 0.3);
+  box-shadow: 0 0 10px rgba(54, 8, 237, 0.3);
   width: 30rem;
   background-color: transparent;
+  border: 1px solid rgb(201, 192, 192);
 
   opacity: 900;
 }

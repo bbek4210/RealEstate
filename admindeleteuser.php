@@ -41,3 +41,6 @@ function deleteUserByEmail($conn, $email)
 }
 
 $conn->close();
+
+
+

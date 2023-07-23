@@ -26,7 +26,7 @@ if ($conn->connect_error) {
 <head>
   <meta charset="UTF-8" />
   <title>DreamGhar - Property Listing.</title>
-  <link rel="stylesheet" href="realestate.css" />
+  <link href="realestate.css?<?= filemtime("realestate.css") ?>" rel="stylesheet" type="text/css" />
   <script src="https://kit.fontawesome.com/f835eee1c5.js" crossorigin="anonymous"></script>
   <style>
     .profile-icon {
@@ -72,36 +72,37 @@ if ($conn->connect_error) {
 
 
     <main>
-      <section id="featured-listings">
+      <section id="featured-listings" style="margin-inline-start: 41px;">
         <h2>Featured Listings</h2>
-        <ul>
-          <?php $query = mysqli_query($conn, "SELECT * FROM `property` ");
+        <div class="property-listings">
+          <?php
+          $query = mysqli_query($conn, "SELECT * FROM `property` ");
           while ($row = mysqli_fetch_array($query)) {
-
           ?>
-
-            <li>
+            <div class="property-listing">
               <img src="./admin/property/<?php echo $row['10']; ?>" width="600" height="300" alt="Listing Image" />
               <div class="listing-info">
-                <h6>Home no:<?php echo $row['pid']; ?></h6>
+                <h6>House no:<?php echo $row['pid']; ?></h6>
                 <h2><?php echo $row['13'] ?></h2>
                 <h3><?php echo $row['8']; ?>, <?php echo $row['9']; ?></h3>
-                <p> Type : On <?php echo $row['2']; ?></p>
-                <p> Area : <?php echo $row['6']; ?>sqft</p>
-                <p> Bedroom : <?php echo $row['3']; ?></p>
-                <p> Bathroom : <?php echo $row['4']; ?></p>
-                <p> Kitchen : <?php echo $row['5']; ?></p>
-                <p><b>Posted By</b> : <?php echo $row['14']; ?></p>
-                <p><b>Contact Number : </b> <?php echo $row['15']; ?></p>
+                <p>Type: On <?php echo $row['2']; ?></p>
+                <p>Area: <?php echo $row['6']; ?> sqft</p>
+                <p>Bedroom: <?php echo $row['3']; ?></p>
+                <p>Bathroom: <?php echo $row['4']; ?></p>
+                <p>Kitchen: <?php echo $row['5']; ?></p>
+                <p><b>Posted By:</b> <?php echo $row['14']; ?></p>
+                <p><b>Contact Number:</b> <?php echo $row['15']; ?></p>
                 <button><a href="propertydetails.php?id=<?php echo $row['0']; ?>">View Details</a></button>
-
-
+                <div class="gap"></div> <!-- Gap after View Details button -->
               </div>
-            </li>
+            </div>
           <?php } ?>
-
-        </ul>
+        </div>
       </section>
+
+
+
+
 
       <section id="search-listings">
         <h2>Search Listings</h2>
