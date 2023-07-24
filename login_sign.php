@@ -1,5 +1,9 @@
 <?php
 
+// Initialize the email exists flag
+$emailExists = false;
+
+
 $host = "localhost"; // host name
 $username = "root"; // MySQL username
 $password = ""; // MySQL password (leave blank if you haven't set one)
@@ -13,10 +17,8 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-// $firstname = $_POST['firstname'];
-// $lastname = $_POST['lastname'];
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['signup_submit'])) {
 
   $firstname = $_POST['firstname'];
   $lastname = $_POST['lastname'];
@@ -28,16 +30,31 @@ if (isset($_POST['submit'])) {
   $confirmPassword = $_POST['confirm_password'];
 
   if ($password === $confirmPassword) {
-    // Insert data into the database
-    $sql = "INSERT INTO users (firstname, lastname, email, gender, password, address) VALUES ('$firstname', '$lastname', '$email', '$gender', '$password', '$address')";
+    // Check if the email already exists in the database
+    $check_query = "SELECT * FROM users WHERE email = '$email'";
+    $result = $conn->query($check_query);
 
-    if ($conn->query($sql) === TRUE) {
-      // Redirect to signupsucess.html
-      header("Location: signupsucess.html");
-      exit;
+    if ($result) {
+     if ($result->num_rows > 0) {
+      // Email already exists, set the flag
+      $emailExists = true;
     } else {
-      echo "Error: " . $sql . "<br>" . $conn->error;
+
+      // Insert data into the database
+      $sql = "INSERT INTO users (firstname, lastname, email, gender, password, address) VALUES ('$firstname', '$lastname', '$email', '$gender', '$password', '$address')";
+
+      if ($conn->query($sql) === TRUE) {
+        // Redirect to signupsucess.html
+        header("Location: signupsucess.html");
+        exit;
+      } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+      }
     }
+  } else {
+    echo "Error executing query: " . $conn->error;
+  }
+  
   } else {
     echo "Error: Passwords do not match.";
   }
@@ -102,6 +119,7 @@ $conn->close();
       <section id="signup-form">
         <h1><b>Create a New Account</b></h1>
         <form action="login_sign.php" method="post" onsubmit="return validateForm()">
+
           <div>
             <label for="firstname" style=" color: #007bff; font-weight: bolder;"> First Name:</label>
             <input type="text" id="firstname" name="firstname" required placeholder="Enter Your First Name" />
@@ -128,7 +146,15 @@ $conn->close();
 
           <div>
             <label for="email" style=" color: #007bff; font-weight: bolder;"> Email :</label>
-            <input type="email" id="email" name="email" required placeholder="Enter Your Email" />
+            <input type="email" id="signup_email" name="email" required placeholder="Enter Your Email" />
+            <span id="email_error" class="error_message">
+              <?php
+              // Show the error message if email exists and the form has been submitted
+              if ($emailExists) {
+                echo "Error: The email address is already in use. Please choose a different email.";
+              }
+              ?>
+            </span>
           </div>
           <div>
             <label for="password" style=" color: #007bff; font-weight: bolder;"> Password:</label>
@@ -139,10 +165,10 @@ $conn->close();
             <input type="password" id="confirm_password" name="confirm_password" required placeholder="Confirm Your Password" />
           </div>
 
-          <span id="error_message" style="color: yellowgreen; display: none;">Error: Passwords do not match.</span>
+          <span id="error_message" style="color: black; display: none;">Error: Passwords do not match.</span>
 
 
-          <button name="submit" type="submit">Sign up</button>
+          <button name="signup_submit" type="submit">Sign up</button>
 
         </form>
         <p style="color: black;">
@@ -158,47 +184,22 @@ $conn->close();
     </footer>
     <script src="login.js"></script>
   </div>
-
-
-  <!-- <script>
-    function validateForm() {
-      var firstName = document.getElementById("firstname").value.trim();
-      var lastName = document.getElementById("lastname").value.trim();
-      var errorMessage = document.getElementById("error_message");
-
-      if (!isNaN(firstName)) {
-        errorMessage.innerText = "Error: Invalid first name. Only letters are allowed.";
-        return false;
-      }
-
-      if (!isNaN(lastName)) {
-        errorMessage.innerText = "Error: Invalid last name. Only letters are allowed.";
-        return false;
-      }
-
-      var password = document.getElementById("signup_password").value.trim();
-      var confirmPassword = document.getElementById("confirm_password").value.trim();
-
-      if (password === confirmPassword) {
-        errorMessage.style.display = "none";
-        return true;
-      }
-
-      errorMessage.style.display = "block";
-      return false;
-    }
-
-    // Clear the error message when the page loads
-    window.addEventListener("DOMContentLoaded", function() {
-      var errorMessage = document.getElementById("error_message");
-      errorMessage.style.display = "none";
-    });
-  </script> -->
   <script>
     function validateForm() {
       var firstName = document.getElementById("firstname").value.trim();
       var lastName = document.getElementById("lastname").value.trim();
       var errorMessage = document.getElementById("error_message");
+      var password = document.getElementById("signup_password").value.trim();
+      var confirmPassword = document.getElementById("confirm_password").value.trim();
+      var emailInput = document.getElementById("signup_email").value.trim();
+
+      // Check if the email field is empty
+      if (emailInput === "") {
+        errorMessage.innerText = "Error: Please enter your email.";
+        errorMessage.style.display = "block";
+        return false;
+      }
+
 
       if (!isNaN(firstName)) {
         document.getElementById("firstname_error").innerText = "Only letters are allowed.";
@@ -214,17 +215,18 @@ $conn->close();
         document.getElementById("lastname_error").innerText = "";
       }
 
-      var password = document.getElementById("signup_password").value.trim();
-      var confirmPassword = document.getElementById("confirm_password").value.trim();
-
       if (password !== confirmPassword) {
         errorMessage.innerText = "Error: Passwords do not match.";
+        errorMessage.style.display = "block";
         return false;
+      } else {
+        errorMessage.style.display = "none";
       }
 
-      errorMessage.style.display = "none";
+      // The passwords match, form submission can proceed
       return true;
     }
+
 
     // Clear the error message when the page loads
     window.addEventListener("DOMContentLoaded", function() {

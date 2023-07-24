@@ -114,7 +114,8 @@ $conn->close();
                                 <p>Area: <?php echo $listing['size']; ?> sqft</p>
                                 <p><b>Posted By:</b> <?php echo $listing['author']; ?></p>
                                 <p><b>Contact Number:</b> <?php echo $listing['number']; ?></p>
-                                <button><a href="propertydetails.php?id=<?php echo $listing['pid']; ?>">View Details</a></button>
+                                <button style="margin-bottom: 10px;"><a href="propertydetails.php?id=<?php echo $listing['pid']; ?>">View Details</a></button>
+                                <br>
                             </div>
                         </li>
                     <?php } ?>

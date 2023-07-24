@@ -2,12 +2,17 @@
 <html>
   <head>
     <title>invalid pw</title>
-    <link rel="stylesheet" href="logincss.css" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
       rel="stylesheet"
+    />
+    <link
+      href="logincss.css? > ?= filemtime(logincss.css)?>"
+      rel="stylesheet"
+      type="text/css"
     />
   </head>
 
@@ -27,11 +32,13 @@
       <main>
         <section id="login-form">
           <h1><b>Login Error</b></h1>
-          <p>The password you entered is incorrect.Please try again.</p>
-          <p>
+          <p style="color: black">
+            The password you entered is incorrect.Please try again.
+          </p>
+          <p style="color: black">
             Please
-            <button type="submit"><a href="login_sign.php">Login</a></button
-            >again with correct email and password
+            <button type="submit"><a href="login_sign.php">Login</a></button>
+            again with correct email and password
           </p>
         </section>
       </main>
