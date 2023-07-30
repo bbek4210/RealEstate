@@ -1,53 +1,52 @@
 <?php
 session_start();
 
-// Check if the user is logged in
+// Checking if the user is logged in
 if (!isset($_SESSION['email'])) {
-    // User is not logged in, redirect to the login page
-    header('Location: login.html');
+    //  if User is not logged in, redirecting to the login page
+    header('Location: login_sign.php');
     exit();
 }
 
-// Retrieve user details from the session
+// Retrieving user details from the session
 $firstname = $_SESSION['firstname'];
 $lastname = $_SESSION['lastname'];
 
-// Database connection code
-// Replace the placeholders with your actual database credentials
-$host = "localhost"; // host name
-$username = "root"; // MySQL username
-$password = ""; // MySQL password (leave blank if you haven't set one)
-$dbname = "dreamghar"; // name of the database you want to connect to
+
+$host = "localhost";
+$username = "root";
+$password = "";
+$dbname = "dreamghar";
 
 $conn = new mysqli($host, $username, $password, $dbname);
 if ($conn->connect_error) {
     die('Connection failed: ' . $conn->connect_error);
 }
 
-// Check if the form is submitted
+// Checking if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Retrieve the submitted form data
+    // Retrieving the submitted form data
     $newFirstname = $_POST['firstname'];
     $newLastname = $_POST['lastname'];
     $newPassword = $_POST['password'];
 
-    // Update the user's name and password in the database
+    // Updating the user's name and password in the database
     $email = $_SESSION['email'];
 
-    // Prepare the SQL statement
+    // Preparing the SQL statement
     $sql = "UPDATE users SET firstname = ?, lastname = ?, password = ? WHERE email = ?";
 
-    // Prepare the statement and bind parameters
+    // Preparing the statement and bind parameters
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ssss", $newFirstname, $newLastname, $newPassword, $email);
 
-    // Execute the statement
+    // Executing the statement
     if ($stmt->execute()) {
-        // Update the session variables with the new values
+        // Updating the session variables with the new values
         $_SESSION['firstname'] = $newFirstname;
         $_SESSION['lastname'] = $newLastname;
 
-        // Redirect to the user profile page
+        // Redirecting to the user profile page
         header('Location:profile.php');
         exit();
     } else {
@@ -127,8 +126,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div>
         <header>
             <nav>
-                <!-- Your navigation menu -->
-                <img src="logo.png" alt="Dream Ghar Logo" />
+
+                <a href="realestate.php"><img src="logo.png" alt="Dream Ghar Logo" /></a>
                 <ul style="display: flex; justify-content: flex-end">
                     <li><a href="realestate.php" id="hover">Home</a></li>
                     <li>
@@ -139,9 +138,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <li><a href="contactpage1.html" id="hover">Contact</a></li>
                     <?php if (!empty($firstname) && !empty($lastname)) : ?>
                         <li>
-                            <!-- <i class="fas fa-user profile-icon"></i><?php echo $firstname . ' ' . $lastname; ?>
+                            <?php echo $firstname . ' ' . $lastname; ?>
                             <a href="editprofile.php" class="edit-button">Edit</a>
-                            <a href="logout.php" class="logout-button">Logout</a> -->
+                            <a href="logout.php" class="logout-button">Logout</a>
                         </li>
                     <?php endif; ?>
                 </ul>

@@ -1,18 +1,18 @@
 <?php
 
-// Initialize the email exists flag
+// Initializing  the email exists flag
 $emailExists = false;
 
 
-$host = "localhost"; // host name
-$username = "root"; // MySQL username
-$password = ""; // MySQL password (leave blank if you haven't set one)
-$dbname = "dreamghar"; // name of the database you want to connect to
+$host = "localhost";
+$username = "root";
+$password = "";
+$dbname = "dreamghar";
 
-// Create connection
+// Creating connection
 $conn = new mysqli($host, $username, $password, $dbname);
 
-// Check connection
+// Checking connection
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
@@ -30,31 +30,30 @@ if (isset($_POST['signup_submit'])) {
   $confirmPassword = $_POST['confirm_password'];
 
   if ($password === $confirmPassword) {
-    // Check if the email already exists in the database
+    // Checking if the email already exists in the database
     $check_query = "SELECT * FROM users WHERE email = '$email'";
     $result = $conn->query($check_query);
 
     if ($result) {
-     if ($result->num_rows > 0) {
-      // Email already exists, set the flag
-      $emailExists = true;
-    } else {
-
-      // Insert data into the database
-      $sql = "INSERT INTO users (firstname, lastname, email, gender, password, address) VALUES ('$firstname', '$lastname', '$email', '$gender', '$password', '$address')";
-
-      if ($conn->query($sql) === TRUE) {
-        // Redirect to signupsucess.html
-        header("Location: signupsucess.html");
-        exit;
+      if ($result->num_rows > 0) {
+        // Email already exists, set the flag
+        $emailExists = true;
       } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+
+        // Inserting data into the database
+        $sql = "INSERT INTO users (firstname, lastname, email, gender, password, address) VALUES ('$firstname', '$lastname', '$email', '$gender', '$password', '$address')";
+
+        if ($conn->query($sql) === TRUE) {
+          // Redirecting to signupsucess.html
+          header("Location: signupsucess.html");
+          exit;
+        } else {
+          echo "Error: " . $sql . "<br>" . $conn->error;
+        }
       }
+    } else {
+      echo "Error executing query: " . $conn->error;
     }
-  } else {
-    echo "Error executing query: " . $conn->error;
-  }
-  
   } else {
     echo "Error: Passwords do not match.";
   }
@@ -74,7 +73,7 @@ $conn->close();
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
 
-  <!-- title Logo -->
+
   <link rel="icon" href="#" type="image/x-icon" />
   <link rel="shortcut icon" href="#" type="image/x-icon" />
 </head>
@@ -83,15 +82,12 @@ $conn->close();
   <div>
     <header>
       <nav>
-        <img src="logo.png" alt="Dream Ghar Logo" />
+        <a href="login_sign.php"><img src="logo.png" alt="Dream Ghar Logo" /></a>
         <ul style="display: flex; justify-content: flex-end">
           <li><a href="realestate.php" id="hover">Home</a></li>
-          <!-- <li>
-            <a href="submitproperty.php" id="hover">Submit Property</a>
-          </li> -->
 
           <li><a href="about.html" id="hover">About</a></li>
-          <li><a href="contactpage1.html" id="hover">Contact</a></li>
+
         </ul>
       </nav>
     </header>
@@ -149,7 +145,7 @@ $conn->close();
             <input type="email" id="signup_email" name="email" required placeholder="Enter Your Email" />
             <span id="email_error" class="error_message">
               <?php
-              // Show the error message if email exists and the form has been submitted
+              // Showing the error message if email exists and the form has been submitted
               if ($emailExists) {
                 echo "Error: The email address is already in use. Please choose a different email.";
               }
@@ -193,7 +189,7 @@ $conn->close();
       var confirmPassword = document.getElementById("confirm_password").value.trim();
       var emailInput = document.getElementById("signup_email").value.trim();
 
-      // Check if the email field is empty
+      // Checking if the email field is empty
       if (emailInput === "") {
         errorMessage.innerText = "Error: Please enter your email.";
         errorMessage.style.display = "block";
@@ -228,7 +224,7 @@ $conn->close();
     }
 
 
-    // Clear the error message when the page loads
+    // Clearing the error message when the page loads
     window.addEventListener("DOMContentLoaded", function() {
       var errorMessage = document.getElementById("error_message");
       errorMessage.style.display = "none";

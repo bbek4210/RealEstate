@@ -1,6 +1,6 @@
 
 document.getElementById('search-form').addEventListener('submit', function(event) {
-  event.preventDefault(); // Prevent form submission
+  event.preventDefault(); // Preventing form submission
 
 
   var location = document.getElementById('location').value;

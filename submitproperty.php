@@ -4,33 +4,31 @@ session_cache_limiter(false);
 
 
 
-// Start the session
+// Starting the session
 session_start();
 
-// Check if the user is authorized
+// Checking if the user is authorized
 if (!isset($_SESSION['authorized']) || $_SESSION['authorized'] !== true) {
-    // User is not authorized, redirect to the login page
+    // User is not authorized, redirecting to the login page
     header('Location: login_sign.php');
     exit();
 }
 
 
-// include("config.php");
-$host = "localhost"; // host name
-$username = "root"; // MySQL username
-$password = ""; // MySQL password (leave blank if you haven't set one)
-$dbname = "dreamghar"; // name of the database you want to connect to
 
-// Create connection
+$host = "localhost";
+$username = "root";
+$password = "";
+$dbname = "dreamghar";
+
+// Creating connection
 $conn = new mysqli($host, $username, $password, $dbname);
 
-// Check connection
+// Checking connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// if (!isset($_SESSION['uemail'])) {
-//     header("location:login.html");
 
 $error = "";
 $msg = "";
@@ -52,23 +50,12 @@ if (isset($_POST['add'])) {
     $number = $_POST['number'];
     $location = $_POST['loc'];
 
-    // echo $type;
-    // echo $location;
-    // echo $stype;
-    // echo $bathroom;
-    // echo $kitchen;
-    // echo $price;
-    // echo $city;
-    // echo $size;
 
 
     $temp_name = $_FILES['aimage']['tmp_name'];
     $temp_name1 = $_FILES['aimage1']['tmp_name'];
     $temp_name2 = $_FILES['aimage2']['tmp_name'];
 
-    // echo $temp_name;
-    // echo $temp_name1;
-    // echo $temp_name2;
 
     $aimage = $_FILES['aimage']['name'];
     $aimage1 = $_FILES['aimage1']['name'];
@@ -89,12 +76,12 @@ if (isset($_POST['add'])) {
     echo $result;
 
     if ($result) {
-        // Redirect to the dashboard or home page
+        // Redirect to the home page
         header('Location: realestate.php');
     } else {
         // User was not found or login credentials are incorrect, show an error message
         // Redirect to the login page
-        // echo $result;
+
         header('Location: login_sign.php');
         exit();
     }
@@ -117,13 +104,13 @@ if (isset($_POST['add'])) {
     <div>
         <header>
             <nav>
-                <img src="logo.png" alt="Dream Ghar Logo" />
+                <a href="realestate.php"><img src="logo.png" alt="Dream Ghar Logo" /></a>
                 <ul style="display: flex; justify-content: flex-end">
                     <li><a href="realestate.php" id="hover">Home</a></li>
 
                     <li><a href="about.html" id="hover">About</a></li>
-                    <li><a href="contactpage1.html" id="hover">Contact</a></li>
-                    <!-- <li><a href="login.html" id="hover">Login</a></li> -->
+                    <li><a href="contactpage1.php" id="hover">Contact</a></li>
+
                     <li><a href="logout.php" id="hover">LogOut</a></li>
 
                 </ul>

@@ -1,14 +1,14 @@
 <?php
 session_start();
 
-// Check if the user is logged in
+// Checking if the user is logged in
 if (!isset($_SESSION['email'])) {
-    // User is not logged in, redirect to the login page
+    // User is not logged in, redirecting to the login page
     header('Location: login_sign.php');
     exit();
 }
 
-// Retrieve user details from the session
+// Retrieving user details from the session
 $firstname = $_SESSION['firstname'];
 $lastname = $_SESSION['lastname'];
 ?>
@@ -74,12 +74,12 @@ $lastname = $_SESSION['lastname'];
                     </li>
 
                     <li><a href="about.html" id="hover">About</a></li>
-                    <li><a href="contactpage1.html" id="hover">Contact</a></li>
+                    <li><a href="contactpage1.php" id="hover">Contact</a></li>
                     <?php if (!empty($firstname) && !empty($lastname)) : ?>
                         <li>
-                            <!-- <i class="fas fa-user profile-icon"></i><?php echo $firstname . ' ' . $lastname; ?>
-                            <a href="editprofile.php" class="edit-button">Edit</a>
-                            <a href="logout.php" class="logout-button">Logout</a> -->
+                            <?php echo $firstname . ' ' . $lastname; ?>
+
+
                         </li>
                     <?php endif; ?>
                 </ul>
@@ -96,7 +96,7 @@ $lastname = $_SESSION['lastname'];
                         <a href="logout.php" class="logout-button">Logout</a>
                     </div>
                     </p>
-                    <!-- Add more content here to display user information -->
+
                 <?php endif; ?>
             </section>
         </main>

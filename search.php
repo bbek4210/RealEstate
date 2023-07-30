@@ -1,23 +1,23 @@
 <?php
-// Establish a database connection
+// Establishing a database connection
 $host = "localhost";
 $username = "root";
 $password = "";
 $dbname = "dreamghar";
 $conn = new mysqli($host, $username, $password, $dbname);
 
-// Check for connection errors
+// Checking for connection errors
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Check if the form is submitted
+// Checking if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    // Retrieve the form data
+    // Retrieving the form data
     $location = $_GET['location'];
     $sellingType = $_GET['stype'];
 
-    // Prepare the SQL query based on the search parameters
+    // Preparing the SQL query based on the search parameters
     $sql = "SELECT * FROM property";
     $whereClause = [];
     if (!empty($location)) {
@@ -31,20 +31,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 
 
-    // Execute the query
+    // Executing the query
     $result = $conn->query($sql);
 
-    // Handle the search results
+    // Handling the search results
     $searchListings = [];
     if ($result->num_rows > 0) {
-        // Fetch the search results as an associative array
+        // Fetching the search results as an associative array
         while ($row = $result->fetch_assoc()) {
             $searchListings[] = $row;
         }
     }
 }
 
-// Close the database connection
+// Closing the database connection
 $conn->close();
 ?>
 
@@ -61,7 +61,7 @@ $conn->close();
     <div>
         <header>
             <nav>
-                <img src="logo.png" alt="Dream Ghar Logo" />
+                <a href="realestate.php"><img src="logo.png" alt="Dream Ghar Logo" /></a>
                 <ul>
                     <li><a href="realestate.php" id="hover">Home</a></li>
 
@@ -69,18 +69,12 @@ $conn->close();
                         <a href="submitproperty.html" id="hover">Submit Property</a>
                     </li>
                     <li><a href="about.html" id="hover">About</a></li>
-                    <li><a href="contactpage1.html" id="hover">Contact</a></li>
-                    <!-- <li><a href="login.html" id="hover">Login</a></li> -->
-                    <!-- <li><a href="logout.php" id="hover">LogOut</a></li> -->
+                    <li><a href="contactpage1.php" id="hover">Contact</a></li>
+                   
                 </ul>
             </nav>
         </header>
-        <!-- <main> -->
-
-        <!-- <section id="featured-listings"> -->
-
-
-
+       
         <section id="search-listings">
             <h2>Search Listings</h2>
 
@@ -124,10 +118,10 @@ $conn->close();
                 <p>No results found.</p>
             <?php } ?>
         </section>
-        <!-- </main> -->
+        
 
         <footer>
-            <!-- Footer code -->
+           
             <p>&copy; DreamGhar-Property Listing</p>
         </footer>
     </div>

@@ -1,15 +1,15 @@
 <?php
-// logout.php
 
-// Start the session
+
+// Starting the session
 session_start();
 
-// Clear all session variables
+// Clearing all session variables
 session_unset();
 
-// Destroy the session
+// Destroying the session
 session_destroy();
 
-// Redirect to the login page or any other desired page
+// Redirecting to the login page or any other desired page
 header('Location: login_sign.php');
 exit();
