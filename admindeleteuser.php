@@ -11,9 +11,9 @@ if ($conn->connect_error) {
 }
 
 // Checking if the form is submitted
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Geting the email from the request
-    $email = $_POST['email'];
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['email'])) {
+    // Getting and sanitizing the email from the request
+    $email = mysqli_real_escape_string($conn, $_GET['email']);
 
     // Performing user deletion logic here
     $success = deleteUserByEmail($conn, $email);
@@ -35,9 +35,14 @@ function deleteUserByEmail($conn, $email)
     // Implementing user deletion logic here
     // Performing the SQL deletion statement based on database schema
 
-    $sql = "DELETE FROM users WHERE email = '$email'";
+    $sql = "DELETE FROM users WHERE email = ?";
 
-    return $conn->query($sql) === TRUE;
+    // Use a prepared statement
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $email);
+
+    return $stmt->execute();
 }
 
 $conn->close();
+?>

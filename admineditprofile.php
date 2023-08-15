@@ -4,13 +4,13 @@ session_start();
 // Checking if the user is logged in
 if (!isset($_SESSION['email'])) {
     //  if User is not logged in, redirecting to the login page
-    header('Location: login_sign.php');
+    header('Location: adminlogin.html');
     exit();
 }
 
 // Retrieving user details from the session
-$firstname = $_SESSION['firstname'];
-$lastname = $_SESSION['lastname'];
+$fullname = $_SESSION['name'];
+
 
 
 $host = "localhost";
@@ -26,28 +26,28 @@ if ($conn->connect_error) {
 // Checking if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieving the submitted form data
-    $newFirstname = $_POST['firstname'];
-    $newLastname = $_POST['lastname'];
+    $fullname = $_POST['name'];
+
     $newPassword = $_POST['password'];
 
     // Updating the user's name and password in the database
     $email = $_SESSION['email'];
 
     // Preparing the SQL statement
-    $sql = "UPDATE users SET firstname = ?, lastname = ?, password = ? WHERE email = ?";
+    $sql = "UPDATE admin SET name = ?, password = ? WHERE email = ?";
 
     // Preparing the statement and bind parameters
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssss", $newFirstname, $newLastname, $newPassword, $email);
+    $stmt->bind_param("sss", $fullname, $newPassword, $email);
 
     // Executing the statement
     if ($stmt->execute()) {
         // Updating the session variables with the new values
-        $_SESSION['firstname'] = $newFirstname;
-        $_SESSION['lastname'] = $newLastname;
+        $_SESSION['name'] = $fullname;
+
 
         // Redirecting to the user profile page
-        header('Location:profile.php');
+        header('Location:adminprofile.php');
         exit();
     } else {
         // Error occurred while updating the user details
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
     <meta charset="UTF-8" />
-    <title>Edit Profile</title>
+    <title>Edit Admin Profile</title>
     <link rel="stylesheet" href="realestate.css" />
     <style>
         input[type="text"],
@@ -136,11 +136,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     <li><a href="about.html" id="hover">About</a></li>
                     <li><a href="contactpage1.html" id="hover">Contact</a></li>
-                    <?php if (!empty($firstname) && !empty($lastname)) : ?>
+                    <?php if (!empty($fullname)) : ?>
                         <li style="color: #007bff;font-weight: 700;">
 
 
-                            <?php echo $firstname . ' ' . $lastname; ?>
+                            <?php echo $fullname . ' ' ?>
                             <!-- <a href="editprofile.php" class="edit-button">Edit</a>
                             <a href="logout.php" class="logout-button">Logout</a> -->
                         </li>
@@ -158,13 +158,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?php endif; ?>
                 <form method="POST" action="">
                     <div>
-                        <label for="firstname">First Name:</label>
-                        <input type="text" id="firstname" name="firstname" required placeholder="enter new first name">
+                        <label for="firstname"> Name:</label>
+                        <input type="text" id="name" name="name" required placeholder="enter new name">
                     </div>
-                    <div>
-                        <label for="lastname">Last Name:</label>
-                        <input type="text" id="lastname" name="lastname" required placeholder="enter new last name">
-                    </div>
+
                     <div>
                         <label for="password">New Password:</label>
                         <input type="password" id="password" name="password" required placeholder="enter  new password">

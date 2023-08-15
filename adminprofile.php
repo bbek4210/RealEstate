@@ -4,13 +4,13 @@ session_start();
 // Checking if the user is logged in
 if (!isset($_SESSION['email'])) {
     // User is not logged in, redirecting to the login page
-    header('Location: login_sign.php');
+    header('Location: adminlogin.html');
     exit();
 }
 
 // Retrieving user details from the session
-$firstname = $_SESSION['firstname'];
-$lastname = $_SESSION['lastname'];
+$fullname = $_SESSION['name'];
+
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +18,7 @@ $lastname = $_SESSION['lastname'];
 
 <head>
     <meta charset="UTF-8" />
-    <title>User Profile</title>
+    <title> admin Profile</title>
     <link rel="stylesheet" href="realestate.css" />
     <script src="https://kit.fontawesome.com/f835eee1c5.js" crossorigin="anonymous"></script>
     <style>
@@ -75,12 +75,12 @@ $lastname = $_SESSION['lastname'];
 
                     <li><a href="about.html" id="hover">About</a></li>
                     <li><a href="contactpage1.php" id="hover">Contact</a></li>
-                    <?php if (!empty($firstname) && !empty($lastname)) : ?>
+                    <?php if (!empty($fullname)) : ?>
                         <li style="color: #007bff;font-weight: 700;">
 
 
 
-                            <?php echo $firstname . ' ' . $lastname; ?>
+                            <?php echo $fullname . ' '; ?>
 
 
                         </li>
@@ -91,11 +91,11 @@ $lastname = $_SESSION['lastname'];
 
         <main>
             <section>
-                <h2>User Profile</h2>
-                <?php if (!empty($firstname) && !empty($lastname)) : ?>
-                    <p>Welcome, <?php echo $firstname . ' ' . $lastname; ?>!
+                <h2> Admin User Profile</h2>
+                <?php if (!empty($fullname)) : ?>
+                    <p>Welcome, <?php echo $fullname . ' '; ?>!
                     <div class="button-container">
-                        <a href="editprofile.php" class="edit-button">Edit Your Profile</a>
+                        <a href="admineditprofile.php" class="edit-button">Edit Your Profile</a>
                         <a href="logout.php" class="logout-button">Logout</a>
                     </div>
                     </p>

@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
 
 $host = "localhost";
 $username = "root";
@@ -36,8 +39,14 @@ function deletePostByPid($conn, $postId)
 
 
     $sql = "DELETE FROM property WHERE pid = $postId";
-
-    return $conn->query($sql) === TRUE;
+    if ($conn->query($sql) === TRUE) {
+        echo "Post successfully deleted.";
+        return true;
+    } else {
+        
+        return false;
+    }
 }
 
 $conn->close();
+?>

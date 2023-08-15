@@ -5,11 +5,50 @@
   <meta charset="UTF-8" />
   <title>Admin Panel - DreamGhar</title>
   <link rel="stylesheet" href="realestate.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    section {
+      margin: 20px;
+      padding: 20px;
+      border: 1px solid #ddd;
+    }
+
+    label,
+    select {
+      margin-right: 10px;
+    }
+
+    button {
+      margin-top: 10px;
+    }
+  </style>
+  <script src="https://kit.fontawesome.com/f835eee1c5.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
   <div>
     <header>
+      <!-- ... Your navigation code ... -->
       <nav>
         <img src="logo.png" alt="Dream Ghar Logo" />
         <ul style="display: flex; justify-content: flex-end">
@@ -18,108 +57,143 @@
             <a href="Registeradmin.php
             " id="hover">Register Admin</a>
           </li>
-          <li>
-            <a href="realestate.php" id="hover">post-management</a>
-          </li>
+
+          <?php
+          session_start();
+          if (isset($_SESSION['name'])) {
+            // User is logged in
+            $fullname = $_SESSION['name'];
+
+            echo '<li style="color:#007bff;"id="hover"><span class="profile-icon"><i class="fa-solid fa-user"></i></span> ' . $fullname  .  '</li>';
+          } else {
+            // User is not logged in
+            echo '<li><a href="adminlogin.html" id="hover">Login</a></li>';
+          }
+          ?>
           <li><a href="adminlogin.html" id="hover">Logout</a></li>
 
       </nav>
     </header>
     <main>
-      <section id="user-management">
+      <section id="user-management" style="width: 100%;">
         <h2>User Management</h2>
+        <?php
 
+        $host = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "dreamghar";
 
+        $conn = new mysqli($host, $username, $password, $dbname);
 
+        if ($conn->connect_error) {
+          die("Connection failed: " . $conn->connect_error);
+        }
 
-        <form id="delete-user-form" method="POST" action="admindeleteuser.php">
-          <label for="email">Select Email:</label>
-          <select id="email" name="email">
-            <?php
+        // Retrieving user information from the database
+        $query = "SELECT * FROM users";
+        $result = $conn->query($query);
 
-            $host = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "dreamghar";
+        if ($result->num_rows > 0) {
+          echo '<table>
+                  <tr>
+                    <th>Email</th>
+                    <th>First Name</th>
+                    <th>last Name</th>
+                    <th>Address</th>
+                   
+                    <th>Delete</th>
+                  </tr>';
+          while ($row = $result->fetch_assoc()) {
+            echo '<tr>
+                    <td>' . $row['email'] . '</td>
+                    <td>' . $row['firstname'] . '</td>
+                    <td>' . $row['lastname'] . '</td>
+                    <td>' . $row['address'] . '</td>
+                   
+                    <td><a href="admindeleteuser.php?email=' . urlencode($row['email']) . '"><button type="submit"><i class="fas fa-trash-alt"></i></a></td>
 
-            // Creating connection
-            $conn = new mysqli($host, $username, $password, $dbname);
+                  </tr>';
+          }
+          echo '</table>';
+        } else {
+          echo 'No users found.';
+        }
 
-            // Checking connection
-            if ($conn->connect_error) {
-              die("Connection failed: " . $conn->connect_error);
-            }
-
-            // Retrieving user emails from the database
-            $query = "SELECT email FROM users";
-            $result = $conn->query($query);
-
-            if ($result->num_rows > 0) {
-              while ($row = $result->fetch_assoc()) {
-                $email = $row['email'];
-                echo '<option value="' . $email . '">' . $email . '</option>';
-              }
-            }
-
-            $conn->close();
-            ?>
-          </select>
-
-          <button type="submit">Delete User</button>
-        </form>
-
-
-
-
-
-
+        $conn->close();
+        ?>
       </section>
 
-      <section id="post-management">
+
+      <section id="post-management" style="width: 100%;">
         <h2>Post Management</h2>
 
+        <table style="width: 100%;">
+          <tr>
+            <th>PID</th>
+            <th>Property Name</th>
+            <th>Posted by</th>
+            <th>Pic</th>
+            <th>Delete</th>
+          </tr>
+          <?php
+          $host = "localhost";
+          $username = "root";
+          $password = "";
+          $dbname = "dreamghar";
+
+          $conn = new mysqli($host, $username, $password, $dbname);
+
+          if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+          }
+
+          // Fetching properties from the database
+          $sql = "SELECT pid, property_name, author,pimage FROM property";
+          $result = $conn->query($sql);
+
+          if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
 
 
-        <form id="delete-post-form" method="POST" action="delete-post.php">
-          <label for="post-id"> Select Post ID:</label>
-          <select id="post-id" name="post-id">
-            <?php
+              echo '<tr>
+<td>' . $row['pid'] . '</td>
+<td>' . $row['property_name'] . '</td>
+<td>' . $row['author'] . '</td>
+<td>';
 
-            $host = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "dreamghar";
-
-            $conn = new mysqli($host, $username, $password, $dbname);
-
-            if ($conn->connect_error) {
-              die("Connection failed: " . $conn->connect_error);
-            }
-
-            // Fetching existing post IDs from the database
-            $sql = "SELECT pid FROM property";
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-              // Output each post ID as an option in the select dropdown
-              while ($row = $result->fetch_assoc()) {
-                echo '<option value="' . $row['pid'] . '">' . $row['pid'] . '</option>';
+              if (!empty($row['pimage'])) {
+                echo '<img src="admin/property/' . $row['pimage'] . '" alt="Property Image" style="max-width: 150px; height: auto;">';
+              } else {
+                echo 'Image not available';
               }
-            } else {
-              echo '<option value="" disabled>No posts found</option>';
+
+
+              echo '</td>
+<td style="vertical-align: middle;">
+  <form method="POST" action="delete-post.php">
+    <input type="hidden" name="post-id" value="' . $row['pid'] . '">
+    <button type="submit"><i class="fas fa-trash-alt"></i></button>
+  </form>
+</td>
+</tr>';
             }
+          } else {
+            echo '<tr><td colspan="4">No properties found</td></tr>';
+          }
 
-            $conn->close();
-            ?>
-          </select>
-          <button type="submit">Delete Post</button>
-        </form>
-
-
+          $conn->close();
+          ?>
+        </table>
       </section>
 
+
+
     </main>
+
   </div>
+
+
 
 </body>
 

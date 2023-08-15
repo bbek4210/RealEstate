@@ -26,8 +26,12 @@ $result = mysqli_query($conn, $query);
 if (mysqli_num_rows($result) == 1) {
     // User was found, do something here 
 
+    // Fetching the admin's name from the query result
+    $row = mysqli_fetch_assoc($result);
+    $fullname = $row['name'];
+
     // Storing the email in the session
-    $_SESSION['email'] = $email;
+    $_SESSION['name'] = $fullname;
 
     // Redirecting to the home page
     header('Location: adminpage.php');
