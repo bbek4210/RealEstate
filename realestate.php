@@ -3,10 +3,10 @@
 
 
 
-$host = "localhost"; 
-$username = "root"; 
-$password = ""; 
-$dbname = "dreamghar"; 
+$host = "localhost";
+$username = "root";
+$password = "";
+$dbname = "dreamghar";
 
 // Creating connection
 $conn = new mysqli($host, $username, $password, $dbname);
@@ -99,7 +99,7 @@ if ($conn->connect_error) {
                 <p><b>Posted By:</b> <?php echo $row['14']; ?></p>
                 <p><b>Contact Number:</b> <?php echo $row['15']; ?></p>
                 <button><a href="propertydetails.php?id=<?php echo $row['0']; ?>">View Details</a></button>
-                <div class="gap"></div> 
+                <div class="gap"></div>
               </div>
             </div>
           <?php } ?>

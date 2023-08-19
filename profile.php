@@ -59,6 +59,24 @@ $lastname = $_SESSION['lastname'];
             -webkit-transform: scale(1.05);
             -webkit-transition: transform 0.2s ease-in-out;
         }
+
+        .your-property-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .your-property-button:hover {
+            background-color: #4caf50;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transform: scale(1.05);
+            transition: transform 0.2s ease-in-out;
+        }
     </style>
 </head>
 
@@ -97,6 +115,8 @@ $lastname = $_SESSION['lastname'];
                     <div class="button-container">
                         <a href="editprofile.php" class="edit-button">Edit Your Profile</a>
                         <a href="logout.php" class="logout-button">Logout</a>
+                        <a href="your_listed_property.php" class="your-property-button">Your Listed Property</a>
+
                     </div>
                     </p>
 

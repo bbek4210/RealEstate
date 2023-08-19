@@ -131,13 +131,14 @@ $conn->close();
 
 
           <div style="color: darkgreen;">
-            <input type="radio" name="gender" value="male" /> Male
+            <input type="radio" name="gender" value="male" required /> Male
             <input type="radio" name="gender" value="female" /> Female
-            <input type="radio" name="gender" value="others" />Others
+            <input type="radio" name="gender" value="others" /> Others
           </div>
+
           <div>
             <label for="address" style=" color: #007bff; font-weight: bolder;"> Address:</label>
-            <input type="text" name="address" id="address" placeholder="Enter Your Address" />
+            <input type="text" name="address" id="address" placeholder="Enter Your Address" pattern="^(?=.*[a-zA-Z])[\w\s]+$" />
           </div>
 
           <div>
@@ -153,9 +154,11 @@ $conn->close();
             </span>
           </div>
           <div>
-            <label for="password" style=" color: #007bff; font-weight: bolder;"> Password:</label>
-            <input type="password" id="signup_password" name="password" required placeholder="Enter Your Password" />
+            <label for="password" style="color: #007bff; font-weight: bolder;">Password:</label>
+            <input type="password" id="signup_password" name="password" required minlength="8" placeholder="Enter Your Password" />
           </div>
+
+
           <div>
             <label for="confirm_password" style=" color: #007bff; font-weight: bolder;"> Confirm Password:</label>
             <input type="password" id="confirm_password" name="confirm_password" required placeholder="Confirm Your Password" />

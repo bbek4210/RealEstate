@@ -133,6 +133,8 @@
             <th>PID</th>
             <th>Property Name</th>
             <th>Posted by</th>
+            <th>Phone.No</th>
+
             <th>Pic</th>
             <th>Delete</th>
           </tr>
@@ -149,7 +151,7 @@
           }
 
           // Fetching properties from the database
-          $sql = "SELECT pid, property_name, author,pimage FROM property";
+          $sql = "SELECT pid, property_name, author,number,pimage FROM property";
           $result = $conn->query($sql);
 
           if ($result->num_rows > 0) {
@@ -160,6 +162,8 @@
 <td>' . $row['pid'] . '</td>
 <td>' . $row['property_name'] . '</td>
 <td>' . $row['author'] . '</td>
+<td>' . $row['number'] . '</td>
+
 <td>';
 
               if (!empty($row['pimage'])) {

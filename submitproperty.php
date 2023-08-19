@@ -153,15 +153,21 @@ if (isset($_POST['add'])) {
                     <div class="form-group">
                         <label for="author">
                             <b>
-                                <h1 style="color: #007bff">Your Name</h1> </label>
-                        <input type="text" class="form-control" id="author" name="author" required placeholder="Enter your name" />
+                                <h1 style="color: #007bff">Your Name</h1>
+                            </b>
+                        </label>
+                        <input type="text" class="form-control" id="author" name="author" required placeholder="Enter your name" pattern="[A-Za-z\s]+" />
                     </div>
+
+
 
                     <div class="form-group">
                         <label for="number">
                             <b>
-                                <h1 style="color: #007bff">Your PhoneNumber</h1> </label>
-                        <input type="text" class="form-control" id="number" name="number" required placeholder="Enter your phone number" />
+                                <h1 style="color: #007bff">Your PhoneNumber</h1>
+                            </b>
+                        </label>
+                        <input type="text" class="form-control" id="number" name="number" required placeholder="Enter your phone number" pattern="[0-9]{10}" />
                     </div>
 
 
@@ -169,49 +175,51 @@ if (isset($_POST['add'])) {
                         <label for="bathroom">
                             <b>
                                 <h1 style="color: #007bff">Bathroom</h1> </label>
-                        <input type="text" class="form-control" id="bathroom" name="bath" required placeholder="Enter Bathroom ( 1 to 10)" />
+                        <input type="text" class="form-control" id="bathroom" name="bath" required placeholder="Enter Bathroom ( 1 to 10)" pattern="[1-9]|10" />
                     </div>
 
                     <div class="form-group">
                         <label for="kitchen">
                             <b>
                                 <h1 style="color: #007bff">Kitchen</h1> </label>
-                        <input type="text" class="form-control" id="kitchen" name="kitc" required placeholder="Enter Kitchen (1 to 10)" />
+                        <input type="text" class="form-control" id="kitchen" name="kitc" required placeholder="Enter Kitchen (1 to 10)" pattern="[1-9]|10" />
                     </div>
 
                     <div class="form-group">
                         <label for="bedroom">
                             <b>
                                 <h1 style="color: #007bff">Bedroom</h1> </label>
-                        <input type="text" class="form-control" id="bedroom" name="bed" required placeholder="Enter Bedroom (1 to 10)" />
+                        <input type="text" class="form-control" id="bedroom" name="bed" required placeholder="Enter Bedroom (1 to 10)" pattern="[1-9]|10" />
                     </div>
 
                     <div class="form-group">
                         <label for="price">
                             <b>
                                 <h1 style="color: #007bff">Price</h1> </label>
-                        <input type="text" class="form-control" id="price" name="price" required placeholder="Enter Price" />
+                        <input type="text" class="form-control" id="price" name="price" required placeholder="Enter Price" pattern="\d+(\.\d+)?" />
                     </div>
 
                     <div class="form-group">
                         <label for="city">
                             <b>
                                 <h1 style="color: #007bff">City</h1> </label>
-                        <input type="text" class="form-control" id="city" name="city" required placeholder="Enter City" />
+                        <input type="text" class="form-control" id="city" name="city" required placeholder="Enter City" pattern="^(?=.*[a-zA-Z])[\w\s]+$" />
                     </div>
-
                     <div class="form-group">
                         <label for="area-size">
                             <b>
-                                <h1 style="color: #007bff">Area-size</h1> </label>
-                        <input type="text" class="form-control" id="area-size" name="asize" required placeholder="Enter Area Size (in sqrt)" />
+                                <h1 style="color: #007bff">Area-size</h1>
+                            </b>
+                        </label>
+                        <input type="text" class="form-control" id="area-size" name="asize" required placeholder="Enter Area Size (in sqft or sqm)" pattern="\d+(\.\d+)?\s*(?:sqft|sqm)?" />
                     </div>
+
 
                     <div class="form-group">
                         <label for="address">
                             <b>
                                 <h1 style="color: #007bff">Address</h1> </label>
-                        <input type="text" class="form-control" id="address" name="loc" required placeholder="Enter Address" />
+                        <input type="text" class="form-control" id="address" name="loc" required placeholder="Enter Address" pattern="^(?=.*[a-zA-Z])[\w\s]+$" />
                     </div>
 
 
